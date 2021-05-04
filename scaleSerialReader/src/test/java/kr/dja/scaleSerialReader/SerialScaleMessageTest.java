@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +25,26 @@ public class SerialScaleMessageTest
 	}
 	
 	@Test
+	@DisplayName("계근대 시리얼 문자열 재대로 해석")
 	public void scaleMessageTest() throws InterruptedException
 	{
 		log.debug("test start");
 		List<Object> generatedDTO = new ArrayList<>();
 		serialMessageReader.attachObserver(generatedDTO::add);
-		ScaleDTO dto = scaleDataFactory.createDTO("000002.05.0514:30___11__430.00___30.00__400.00g_PT2001___45678");
+		ScaleDTO dto =  new ScaleDTO();
+		dto.setSequence(0);
+		dto.setErrorCode("00");
+		dto.setScaleStatus("00");
+		dto.setIdentNo(1);
+		dto.setScaleNo(1);
+		dto.setGross(430);
+		dto.setTare(30);
+		dto.setNet(400);
+		dto.setUnit("g");
+		dto.setTairCode("PT");
+		dto.setWeighingRange("2");
+		dto.setTerminalNo("001");
+		
 		serialMessageReader.readData("<000002.05.0514:30___11__430.00___30.00__400.00g_PT2001___45678>\r\n".getBytes());
 		for(int i = 0; i < 10000; ++i)
 		{
