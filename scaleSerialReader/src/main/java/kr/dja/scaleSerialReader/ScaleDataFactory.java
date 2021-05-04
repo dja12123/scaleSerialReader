@@ -13,6 +13,7 @@ public class ScaleDataFactory implements ISerialDTOFactory
 	{
 		ScaleDTO dto = new ScaleDTO();
 		
+		//문자열에서 각 필드를 추출하여 dto에 삽입
 		
 		return dto;
 	}
